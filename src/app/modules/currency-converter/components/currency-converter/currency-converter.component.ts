@@ -99,6 +99,8 @@ export class CurrencyConverterComponent implements OnInit, OnDestroy {
       });
   }
 
+  // TODO: handle currencies swap
+
   handleFormValueChanged(res: formValue): void {
     console.log(this.previousCurrencyFormValue, res);
     // compare two values to see what changed
