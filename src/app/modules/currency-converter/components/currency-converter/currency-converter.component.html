@@ -1,0 +1,28 @@
+<form *ngIf="currencyForm" [formGroup]="currencyForm" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
+  <div fxLayout="column">
+    <mat-form-field appearance="fill">
+      <mat-label>From</mat-label>
+      <mat-select formControlName="firstCurrency">
+        <mat-option *ngFor="let currency of mockCurrencies" [value]="currency.shorthand">
+          {{currency.name}}, {{currency.shorthand}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number" formControlName="firstCurrencyValue">
+    </mat-form-field>
+  </div>
+  <div fxLayout="column">
+    <mat-form-field appearance="fill">
+      <mat-label>To</mat-label>
+      <mat-select formControlName="secondCurrency">
+        <mat-option *ngFor="let currency of mockCurrencies" [value]="currency.shorthand">
+          {{currency.name}}, {{currency.shorthand}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number" formControlName="secondCurrencyValue">
+    </mat-form-field>
+  </div>
+</form>
