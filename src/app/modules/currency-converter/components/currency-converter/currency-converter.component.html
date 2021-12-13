@@ -1,28 +1,39 @@
-<form *ngIf="currencyForm" [formGroup]="currencyForm" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
-  <div fxLayout="column">
-    <mat-form-field appearance="fill">
+<form *ngIf="currencyForm" [formGroup]="currencyForm" fxLayout="column" fxLayout.gt-xs="row"
+      fxLayoutAlign="center center" fxLayoutGap="10px" class="form">
+  <div fxLayout="row wrap" fxLayout.gt-xs="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <mat-form-field appearance="fill" fxFlex="calc(50% - 10px)">
       <mat-label>From</mat-label>
       <mat-select formControlName="firstCurrency">
         <mat-option *ngFor="let currency of mockCurrencies" [value]="currency.shorthand">
-          {{currency.name}}, {{currency.shorthand}}
+          {{currency.shorthand}}, {{currency.name}}
         </mat-option>
       </mat-select>
+      <mat-hint>Select currency</mat-hint>
     </mat-form-field>
-    <mat-form-field>
-      <input matInput type="number" formControlName="firstCurrencyValue">
+    <mat-form-field appearance="fill" fxFlex="calc(50% - 10px)">
+      <input matInput type="number" [min]="0" formControlName="firstCurrencyValue">
+      <mat-hint>Enter value</mat-hint>
     </mat-form-field>
   </div>
-  <div fxLayout="column">
-    <mat-form-field appearance="fill">
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <button mat-fab color="basic" type="button" (click)="swapCurrencies()">
+      <mat-icon fxShow="true" fxHide.gt-xs="true">swap_vert</mat-icon>
+      <mat-icon fxHide.xs="true">swap_horiz</mat-icon>
+    </button>
+  </div>
+  <div fxLayout="row wrap" fxLayout.gt-xs="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <mat-form-field appearance="fill" fxFlex="calc(50% - 10px)">
       <mat-label>To</mat-label>
       <mat-select formControlName="secondCurrency">
         <mat-option *ngFor="let currency of mockCurrencies" [value]="currency.shorthand">
-          {{currency.name}}, {{currency.shorthand}}
+          {{currency.shorthand}}, {{currency.name}}
         </mat-option>
       </mat-select>
+      <mat-hint>Select currency</mat-hint>
     </mat-form-field>
-    <mat-form-field>
-      <input matInput type="number" formControlName="secondCurrencyValue">
+    <mat-form-field appearance="fill" fxFlex="calc(50% - 10px)">
+      <input matInput type="number" [min]="0" formControlName="secondCurrencyValue">
+      <mat-hint>Enter value</mat-hint>
     </mat-form-field>
   </div>
 </form>

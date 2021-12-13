@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Currency, ExchangeRate } from '../../models';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { ReplaySubject } from 'rxjs';
+import { Currency, ExchangeRate }             from '../../models';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReplaySubject }                      from 'rxjs';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 
 interface formValue {
@@ -53,6 +53,18 @@ export class CurrencyConverterComponent implements OnInit, OnDestroy {
       rate: 0.063,
       validOn: this.validDate,
     },
+    {
+      firstCurrencyCode: 'ZAR',
+      secondCurrencyCode: 'PHP',
+      rate: 3.16,
+      validOn: this.validDate,
+    },
+    {
+      firstCurrencyCode: 'PHP',
+      secondCurrencyCode: 'ZAR',
+      rate: 0.32,
+      validOn: this.validDate,
+    },
   ];
 
   currencyForm?: FormGroup;
@@ -82,13 +94,13 @@ export class CurrencyConverterComponent implements OnInit, OnDestroy {
     this.currencyForm = this.formBuilder.group({
       firstCurrency: [''],
       secondCurrency: [''],
-      firstCurrencyValue: [0],
-      secondCurrencyValue: [0],
+      firstCurrencyValue: [0, Validators.min(0)],
+      secondCurrencyValue: [0, Validators.min(0)],
     });
 
     this.currencyForm.valueChanges
       .pipe(
-        debounceTime(300),
+        debounceTime(500),
         distinctUntilChanged<formValue>((x, y) => {
           return JSON.stringify(x) === JSON.stringify(y);
         }),
@@ -99,7 +111,16 @@ export class CurrencyConverterComponent implements OnInit, OnDestroy {
       });
   }
 
-  // TODO: handle currencies swap
+  swapCurrencies(): void {
+    const newFormValue = {...this.currencyForm?.value};
+    newFormValue.firstCurrency = this.currencyForm?.value.secondCurrency;
+    newFormValue.firstCurrencyValue = this.currencyForm?.value.secondCurrencyValue;
+    newFormValue.secondCurrency = this.currencyForm?.value.firstCurrency;
+    newFormValue.secondCurrencyValue = this.currencyForm?.value.firstCurrencyValue;
+    console.log(this.currencyForm?.value, newFormValue);
+    this.currencyForm?.patchValue(newFormValue, {emitEvent: false});
+    this.previousCurrencyFormValue = newFormValue;
+  }
 
   handleFormValueChanged(res: formValue): void {
     console.log(this.previousCurrencyFormValue, res);

@@ -1,5 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule }        from '@angular/core';
+import { CommonModule }    from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule }   from '@angular/material/icon';
 
 import { CurrencyConverterRoutingModule } from './currency-converter-routing.module';
 import { CurrencyConverterComponent } from './components/currency-converter/currency-converter.component';
@@ -19,6 +21,8 @@ import { MatSelectModule } from "@angular/material/select";
     ReactiveFormsModule,
     MatOptionModule,
     MatSelectModule,
-  ],
+    MatButtonModule,
+    MatIconModule
+  ]
 })
 export class CurrencyConverterModule {}
