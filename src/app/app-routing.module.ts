@@ -10,6 +10,13 @@ const routes: Routes = [
         (m) => m.CurrencyConverterModule
       ),
   },
+  {
+    path: 'length-unit-converter',
+    loadChildren: () =>
+      import('./modules/length-unit-converter/length-unit-converter.module').then(
+        (m) => m.LengthUnitConverterModule
+      ),
+  },
   { path: '**', redirectTo: 'currency-converter' },
 ];
 

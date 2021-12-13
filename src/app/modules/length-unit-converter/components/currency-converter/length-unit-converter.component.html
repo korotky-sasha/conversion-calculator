@@ -1,0 +1,39 @@
+<form *ngIf="lengthUnitForm" [formGroup]="lengthUnitForm" fxLayout="column" fxLayout.gt-xs="row"
+      fxLayoutAlign="center center" fxLayoutGap="10px" class="form">
+  <div fxLayout="row wrap" fxLayout.gt-xs="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <mat-form-field appearance="fill" fxFlex="calc(50% - 10px)">
+      <mat-label>From</mat-label>
+      <mat-select formControlName="firstLengthUnit">
+        <mat-option *ngFor="let lengthUnit of LengthUnits" [value]="lengthUnit.shorthand">
+          {{lengthUnit.shorthand}}, {{lengthUnit.name}}
+        </mat-option>
+      </mat-select>
+      <mat-hint>Select length unit</mat-hint>
+    </mat-form-field>
+    <mat-form-field appearance="fill" fxFlex="calc(50% - 10px)">
+      <input matInput type="number" [min]="0" formControlName="firstLengthUnitValue">
+      <mat-hint>Enter value</mat-hint>
+    </mat-form-field>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <button mat-fab color="basic" type="button" (click)="swapCurrencies()">
+      <mat-icon fxShow="true" fxHide.gt-xs="true">swap_vert</mat-icon>
+      <mat-icon fxHide.xs="true">swap_horiz</mat-icon>
+    </button>
+  </div>
+  <div fxLayout="row wrap" fxLayout.gt-xs="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <mat-form-field appearance="fill" fxFlex="calc(50% - 10px)">
+      <mat-label>To</mat-label>
+      <mat-select formControlName="secondLengthUnit">
+        <mat-option *ngFor="let lengthUnit of LengthUnits" [value]="lengthUnit.shorthand">
+          {{lengthUnit.shorthand}}, {{lengthUnit.name}}
+        </mat-option>
+      </mat-select>
+      <mat-hint>Select length unit</mat-hint>
+    </mat-form-field>
+    <mat-form-field appearance="fill" fxFlex="calc(50% - 10px)">
+      <input matInput type="number" [min]="0" formControlName="secondLengthUnitValue">
+      <mat-hint>Enter value</mat-hint>
+    </mat-form-field>
+  </div>
+</form>
